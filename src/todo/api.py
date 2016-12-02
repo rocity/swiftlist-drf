@@ -16,4 +16,5 @@ class ListViewSet(viewsets.ModelViewSet):
 
     def get(self, request, *args, **kwargs):
 
-        return Response(status=status.HTTP_200_OK)
+        serializer = todo_serializers.ListSerializer(order)
+        return Response(serializer.data, status=status.HTTP_200_OK)
