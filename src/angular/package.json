@@ -1,0 +1,26 @@
+{
+  "name": "swiftlist",
+  "version": "0.0.1",
+  "description": "A to-do list with a DRF backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rocity/swiftlist-drf.git"
+  },
+  "keywords": [
+    "swiftlist"
+  ],
+  "author": "Kevin Kalis",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rocity/swiftlist-drf/issues"
+  },
+  "homepage": "https://github.com/rocity/swiftlist-drf#readme",
+  "dependencies": {
+    "angular": "^1.5.9",
+    "bootstrap": "^3.3.7"
+  }
+}
