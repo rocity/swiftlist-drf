@@ -1,0 +1,22 @@
+#swiftlistNav {
+    background: #129793;
+    border-radius: 0;
+    border: #129793;
+    color: #fff;
+}
+
+#swiftlistNav a {
+    color: #fff;
+}
+
+#swiftlistNav .navbar-nav > .active > a,
+#swiftlistNav .navbar-nav > .active > a:focus,
+#swiftlistNav .navbar-nav > .active > a:hover {
+    background-color: #9BD7D5;
+}
+
+#swiftlistLogo {
+    background: url(../img/swiftlist-logo.png) no-repeat top center / 70%;
+    width: 150px;
+    height: 50px;
+}

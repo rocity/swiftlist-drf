@@ -9,12 +9,10 @@ from rest_framework.views import APIView
 from todo import models as todo_models
 from todo import serializers as todo_serializers
 
-class ListViewSet(viewsets.ModelViewSet):
+class ListViewSet(viewsets.ViewSet):
     """docstring for ListViewSet"""
-    queryset = todo_models.List.objects.all()
-    serializer_class = todo_serializers.ListSerializer
+    def list(self, *args, **kwargs):
+        lists = List.objects.all()
+        serializer = ListSerializer(lists, many=True)
 
-    def get(self, request, *args, **kwargs):
-
-        serializer = todo_serializers.ListSerializer(order)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.data, status=200)
