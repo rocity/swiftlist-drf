@@ -21,8 +21,8 @@
   "homepage": "https://github.com/rocity/swiftlist-drf#readme",
   "dependencies": {
     "angular": "^1.5.9",
-    "angular-route": "^1.5.9",
     "angular-ui-bootstrap": "^2.3.0",
+    "angular-ui-router": "^0.3.2",
     "bootstrap": "^3.3.7"
   },
   "devDependencies": {

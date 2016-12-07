@@ -1,34 +1,21 @@
 var app = angular.module('swiftList', [
                 'ui.bootstrap',
-                'ngRoute'
+                'ui.router',
                 ])
                 .controller('HomeController', HomeController)
                 .controller('ListController', ListController)
                 .config(routeConfig)
 ;
 
-function routeConfig($routeProvider, $locationProvider) {
-    $routeProvider
-        .when('/list/', {
+function routeConfig($stateProvider, $urlRouterProvider) {
+    $urlRouterProvider.otherwise('/home');
+
+    $stateProvider
+        .state('home', {
+            url: '/home',
             templateUrl: 'templates/homePage.html',
-            controller: 'HomeController'
-        })
-        .when('/list/:listId', {
-            templateUrl: 'templates/listPage.html',
-            controller: 'ListController',
-            resolve: {
-                delay: function ($q, $timeout) {
-                    var delay = q.defer();
-                    $timeout(delay.resolve, 1000);
-                    return delay.response
-                }
-            }
-        })
-        .otherwise({
-          redirectTo: "/"
         })
 
-        ; // end of routeProvider
 }
 
 function HomeController($scope) {
