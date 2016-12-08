@@ -7,7 +7,14 @@ var app = angular.module('swiftList', [
                 .constant('API_URL', 'http://localhost:8080/todo/')
                 .factory('ListService', ListService)
                 .config(routeConfig)
+                .config(csrf)
 ;
+
+
+function csrf($httpProvider) {
+    $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+    $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+}
 
 function routeConfig($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/home');
@@ -23,7 +30,9 @@ function routeConfig($stateProvider, $urlRouterProvider) {
 function HomeController($scope, ListService) {
     $scope.heading = 'Home Page'
 
-    $scope.list = ListService.list();
+    ListService.list().then(function(response){
+        $scope.list = response.data;
+    });
 }
 
 function ListController($scope) {
@@ -37,6 +46,6 @@ function ListService($http, API_URL) {
     return services;
 
     function listGet() {
-        return $http.get(API_URL + 'list/');
+        return $http.get(API_URL);
     }
 }
