@@ -59,12 +59,20 @@ function ListController($scope, $stateParams, ListService) {
     ListService.listDetail($stateParams.listId).then(function (response) {
         $scope.list = response.data;
     })
+
+    $scope.markItemDone = function (itemId) {
+        console.log(itemId, 'lol');
+        ListService.itemDone(itemId).then(function (response) {
+            console.log(response.data)
+        })
+    }
 }
 
 function ListService($http, API_URL) {
     var services = {
         list: listGet,
         listDetail: listDetail,
+        itemDone: itemDone,
     };
     return services;
 
@@ -73,7 +81,11 @@ function ListService($http, API_URL) {
     }
 
     function listDetail(listId) {
-        return $http.get(API_URL + 'list/' + listId);
+        return $http.get(API_URL + 'list/' + listId + '/');
+    }
+
+    function itemDone(itemId) {
+        return $http.put(API_URL + 'item/' + itemId + '/');
     }
 
 }

@@ -49,3 +49,17 @@ body {
     text-decoration: line-through;
     background-color: #9BD7D5;
 }
+
+/* 
+* Overriding TBS
+ */
+
+.btn-list-primary {
+    color: #fff;
+    background-color: #9BD7D5;
+    border-color: #129793;
+}
+.btn-list-primary:hover {
+    color: #fff;
+    background-color: #129793;
+}

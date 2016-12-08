@@ -16,6 +16,9 @@ urlpatterns = [
     url(r'^list/(?P<list_id>[0-9]+)/$', ListDetailViewSet.as_view({
         'get': 'detail'
         }), name="list_detail"),
-    
+    url(r'^item/(?P<item_id>[0-9]+)/$', ItemViewSet.as_view({
+        'put': 'update'
+        }), name="item"),
+
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]

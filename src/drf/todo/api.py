@@ -33,3 +33,18 @@ class ListDetailViewSet(ViewSet):
         list_obj = get_object_or_404(self.queryset, pk=kwargs['list_id'])
         serializer = todo_serializers.ListSerializer(list_obj)
         return Response(serializer.data, status=200)
+
+class ItemViewSet(ViewSet):
+    """docstring for ItemViewSet"""
+    queryset = todo_models.Item.objects.all()
+
+    def update(self, *args, **kwargs):
+        # set item as `done`
+        item = get_object_or_404(todo_models.Item, id=kwargs['item_id'])
+        item.done = True
+        serializer = todo_serializers.ItemSerializer(item, data=item.__dict__)
+
+        if serializer.is_valid():
+            instance = serializer.save()
+            return Response(serializer.data, status=200)
+        return Response(serializer.data, status=400)
