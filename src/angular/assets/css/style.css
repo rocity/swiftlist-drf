@@ -1,3 +1,7 @@
+body {
+    color: #505050;
+}
+
 #swiftlistNav {
     background: #129793;
     border-radius: 0;
@@ -43,5 +47,5 @@
 }
 .item-done {
     text-decoration: line-through;
-    background-color: #f1f8e9;
+    background-color: #9BD7D5;
 }
