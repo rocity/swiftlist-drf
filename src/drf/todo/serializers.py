@@ -2,9 +2,15 @@ from .models import *
 
 from rest_framework import serializers
 
+class ItemSerializer(serializers.ModelSerializer):
+    """docstring for ItemSerializer"""
+    class Meta:
+        model = Item
+        fields = ('text', 'done',)
+
 class ListSerializer(serializers.ModelSerializer):
     """docstring for ListSerializer"""
-    queryset = List.objects.all()
+    items = ItemSerializer(many=True)
 
     class Meta:
         model = List

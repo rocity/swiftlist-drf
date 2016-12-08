@@ -24,11 +24,20 @@ function routeConfig($stateProvider, $urlRouterProvider) {
             url: '/home',
             templateUrl: 'templates/homePage.html',
         })
+        .state('listView', {
+            url: '/list/:listId',
+            templateUrl: 'templates/listPage.html',
+            controller: ListController,
+        })
 
 }
 
 function HomeController($scope, ListService) {
+    /*
+    * A page where a collection of Lists are displayed
+     */
     $scope.heading = 'List of Lists'
+    $scope.list = []
 
     ListService.list().then(function(response){
         for (var i = response.data.length - 1; i >= 0; i--) {
@@ -41,17 +50,29 @@ function HomeController($scope, ListService) {
     });
 }
 
-function ListController($scope) {
-    $scope.heading = 'List Page';
+function ListController($scope, $stateParams, ListService) {
+    /*
+    * A page where a single List is displayed with its Items
+     */
+    $scope.list = {};
+
+    ListService.listDetail($stateParams.listId).then(function (response) {
+        $scope.list = response.data;
+    })
 }
 
 function ListService($http, API_URL) {
     var services = {
         list: listGet,
+        listDetail: listDetail,
     };
     return services;
 
     function listGet() {
         return $http.get(API_URL);
+    }
+
+    function listDetail(listId) {
+        return $http.get(API_URL + 'list/' + listId);
     }
 }

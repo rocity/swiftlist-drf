@@ -2,12 +2,17 @@ from django.contrib import admin
 
 from todo.models import List, Item
 
-# Register your models here.
+class ItemInline(admin.TabularInline):
+    model = Item
+
 class ListAdmin(admin.ModelAdmin):
     '''
         Admin View for List
     '''
     list_display = ('title', 'status', 'created')
+    inlines = [
+        ItemInline,
+    ]
 
 class ItemAdmin(admin.ModelAdmin):
     '''

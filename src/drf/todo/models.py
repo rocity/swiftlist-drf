@@ -25,7 +25,7 @@ class Item(models.Model):
     """ Item Model (fk to List)
     """
 
-    item_list = models.ForeignKey(List)
+    item_list = models.ForeignKey(List, related_name='items', on_delete=models.CASCADE)
     text = models.CharField(max_length=250)
     done = models.BooleanField(default=False)
 
@@ -33,4 +33,4 @@ class Item(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return '{} - {}'.format(self.text, self.done)
+        return '{}'.format(self.text, self.done)
