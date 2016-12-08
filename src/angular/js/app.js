@@ -75,4 +75,5 @@ function ListService($http, API_URL) {
     function listDetail(listId) {
         return $http.get(API_URL + 'list/' + listId);
     }
+
 }

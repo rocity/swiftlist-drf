@@ -1,4 +1,18 @@
 <div ng-controller="ListController">
     <h2>{{list.title}}</h2>
-    
+    <p>
+        {{list.description}}
+    </p>
+    <ul class="list-group">
+        <li
+            class="list-group-item"
+            ng-class="(item.done) ? 'item-done' : ''"
+            ng-repeat="item in list.items">
+            {{item.text}}
+            <input
+                type="checkbox"
+                class="pull-right"
+                ng-checked="{{item.done}}">
+        </li>
+    </ul>
 </div>
