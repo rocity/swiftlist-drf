@@ -92,3 +92,4 @@ ENV/
 
 # Swiftlist
 node_modules/
+*.sqlite3

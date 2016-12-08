@@ -1,8 +1,22 @@
 <div ng-controller="HomeController">
     <h1>{{heading}}</h1>
-    <ul>
-        <li ng-repeat="item in list">
-            {{item.title}}
-        </li>
-    </ul>
+    <div class="row">
+        <div
+            ng-repeat="item in list"
+            class="col-sm-6">
+            <div class="list-item list-item-block">
+                <h2 class="list-item-title">{{item.title}}</h2>
+                <p>
+                    {{item.description | limitTo : 100 : 0}}
+                </p>
+                <p>
+                    <small class="text-danger">
+                        666 items <strong>(22 done)</strong>
+                    </small>
+                </p>
+                <p><small>Posted: {{item.created}}</small></p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
 </div>

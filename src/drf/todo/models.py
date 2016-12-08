@@ -12,6 +12,7 @@ class List(models.Model):
         )
 
     title = models.CharField(max_length=250)
+    description = models.TextField(null=True, blank=True)
     status = models.CharField(max_length=50, choices=STATUSES)
 
     modified = models.DateTimeField(auto_now=True)

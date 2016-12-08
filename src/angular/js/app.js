@@ -28,9 +28,15 @@ function routeConfig($stateProvider, $urlRouterProvider) {
 }
 
 function HomeController($scope, ListService) {
-    $scope.heading = 'Home Page'
+    $scope.heading = 'List of Lists'
 
     ListService.list().then(function(response){
+        for (var i = response.data.length - 1; i >= 0; i--) {
+            ftime = moment(response.data[i].created).format("MM-DD-YYYY");
+
+            response.data[i].created = ftime;
+        }
+
         $scope.list = response.data;
     });
 }
