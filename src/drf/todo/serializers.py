@@ -6,7 +6,7 @@ class ItemSerializer(serializers.ModelSerializer):
     """docstring for ItemSerializer"""
     class Meta:
         model = Item
-        fields = ('id', 'text', 'done',)
+        fields = ('item_list', 'id', 'text', 'done',)
 
 class ListSerializer(serializers.ModelSerializer):
     """docstring for ListSerializer"""

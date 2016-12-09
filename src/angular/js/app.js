@@ -57,20 +57,33 @@ function ListController($scope, $stateParams, ListService) {
     /*
     * A page where a single List is displayed with its Items
      */
-    $scope.list = {};
+    $scope.list = [];
+    $scope.item_create = {};
 
     // retrieve list details from the API
     ListService.listDetail($stateParams.listId).then(function (response) {
         $scope.list = response.data;
     })
 
+    $scope.createItem = function () {
+        $scope.item_create.item_list = $scope.list.id;
+        console.log($scope.item_create);
+
+        // send http request to API
+        ListService.itemCreate($scope.item_create)
+            .then(function (response) {
+                $scope.list.items.push(response.data)
+            })
+    }
+
     $scope.markItemDone = function (scopeItem) {
-        ListService.itemDone(scopeItem.item.id, {"done": scopeItem.item.done}).then(function (response) {
-            if (response.status == 200) {
-                // Mark item as Done in the UI
-                scopeItem.item.done = response.data.done;
-            }
-        })
+        ListService.itemDone(scopeItem.item.id, scopeItem.item)
+            .then(function (response) {
+                if (response.status == 200) {
+                    // Mark item as Done in the UI
+                    scopeItem.item.done = response.data.done;
+                }
+            })
     }
 }
 
@@ -79,6 +92,7 @@ function ListService($http, API_URL) {
         list: listGet,
         listDetail: listDetail,
         itemDone: itemDone,
+        itemCreate: itemCreate,
     };
     return services;
 
@@ -95,6 +109,10 @@ function ListService($http, API_URL) {
     // update item status
     function itemDone(itemId, data) {
         return $http.put(API_URL + 'item/' + itemId + '/', data);
+    }
+
+    function itemCreate(data) {
+        return $http.post(API_URL + 'item/', data)
     }
 
 }

@@ -44,11 +44,22 @@ class ItemViewSet(ViewSet):
     def update(self, *args, **kwargs):
         # set item as `done`
         item = get_object_or_404(todo_models.Item, id=kwargs['item_id'])
-        print(self.request.data)
-        item.done = self.request.data['done']
-        serializer = todo_serializers.ItemSerializer(item, data=item.__dict__)
 
+        serializer = todo_serializers.ItemSerializer(item, data=self.request.data)
+
+        import pdb;pdb.set_trace()
         if serializer.is_valid():
             instance = serializer.save()
             return Response(serializer.data, status=200)
         return Response(serializer.data, status=400)
+
+    def create(self, *args, **kwargs):
+        data = self.request.data.copy()
+
+        serializer = todo_serializers.ItemSerializer(data=data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+
+        return Response(serializer.errors, status=400)

@@ -64,12 +64,22 @@ body {
     background-color: #129793;
 }
 
+/* 
+* Item
+ */
+
 .item-control-group .item-done {
     vertical-align: top;
     margin-top: 0;
     margin-right: 1em;
 }
-
 .item-control-group .glyphicon {
     vertical-align: baseline;
+}
+.item-control-group .glyphicon.item-delete {
+    color: #FF7260;
+}
+
+.item-create-group .input-group-btn .glyphicon {
+    color: #129793;
 }

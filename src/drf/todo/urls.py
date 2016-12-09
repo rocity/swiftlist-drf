@@ -19,6 +19,9 @@ urlpatterns = [
     url(r'^item/(?P<item_id>[0-9]+)/$', ItemViewSet.as_view({
         'put': 'update'
         }), name="item"),
+    url(r'^item/$', ItemViewSet.as_view({
+        'post': 'create'
+        }), name="items"),
 
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
