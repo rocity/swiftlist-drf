@@ -67,12 +67,22 @@ function ListController($scope, $stateParams, ListService) {
 
     $scope.createItem = function () {
         $scope.item_create.item_list = $scope.list.id;
-        console.log($scope.item_create);
 
         // send http request to API
         ListService.itemCreate($scope.item_create)
             .then(function (response) {
-                $scope.list.items.push(response.data)
+                if (response.status == 200) {
+                    $scope.list.items.push(response.data)
+                }
+            })
+    }
+
+    $scope.deleteItem = function (scopeItem, index) {
+        ListService.itemDelete(scopeItem.item.id)
+            .then(function (response) {
+                if (response.status == 204) {
+                    $scope.list.items.splice(index, 1);
+                }
             })
     }
 
@@ -93,6 +103,7 @@ function ListService($http, API_URL) {
         listDetail: listDetail,
         itemDone: itemDone,
         itemCreate: itemCreate,
+        itemDelete: itemDelete,
     };
     return services;
 
@@ -113,6 +124,10 @@ function ListService($http, API_URL) {
 
     function itemCreate(data) {
         return $http.post(API_URL + 'item/', data)
+    }
+
+    function itemDelete(itemId) {
+        return $http.delete(API_URL + 'item/' + itemId + '/')
     }
 
 }

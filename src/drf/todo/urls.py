@@ -17,7 +17,8 @@ urlpatterns = [
         'get': 'detail'
         }), name="list_detail"),
     url(r'^item/(?P<item_id>[0-9]+)/$', ItemViewSet.as_view({
-        'put': 'update'
+        'put': 'update',
+        'post': 'delete'
         }), name="item"),
     url(r'^item/$', ItemViewSet.as_view({
         'post': 'create'

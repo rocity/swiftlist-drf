@@ -47,7 +47,6 @@ class ItemViewSet(ViewSet):
 
         serializer = todo_serializers.ItemSerializer(item, data=self.request.data)
 
-        import pdb;pdb.set_trace()
         if serializer.is_valid():
             instance = serializer.save()
             return Response(serializer.data, status=200)
@@ -63,3 +62,9 @@ class ItemViewSet(ViewSet):
             return Response(serializer.data, status=201)
 
         return Response(serializer.errors, status=400)
+
+    def delete(self, *args, **kwargs):
+        item = get_object_or_404(todo_models.Item, id=kwargs['item_id'])
+        item.delete()
+
+        return Response(status=204)
