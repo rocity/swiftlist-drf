@@ -63,3 +63,13 @@ body {
     color: #fff;
     background-color: #129793;
 }
+
+.item-control-group .item-done {
+    vertical-align: top;
+    margin-top: 0;
+    margin-right: 1em;
+}
+
+.item-control-group .glyphicon {
+    vertical-align: baseline;
+}

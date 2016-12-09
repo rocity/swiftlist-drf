@@ -11,6 +11,7 @@ var app = angular.module('swiftList', [
 ;
 
 
+// django csrf
 function csrf($httpProvider) {
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -39,7 +40,9 @@ function HomeController($scope, ListService) {
     $scope.heading = 'List of Lists'
     $scope.list = []
 
+    // Retrieve all Lists from the API
     ListService.list().then(function(response){
+        // Format created time of all lists
         for (var i = response.data.length - 1; i >= 0; i--) {
             ftime = moment(response.data[i].created).format("MM-DD-YYYY");
 
@@ -56,14 +59,17 @@ function ListController($scope, $stateParams, ListService) {
      */
     $scope.list = {};
 
+    // retrieve list details from the API
     ListService.listDetail($stateParams.listId).then(function (response) {
         $scope.list = response.data;
     })
 
-    $scope.markItemDone = function (itemId) {
-        console.log(itemId, 'lol');
-        ListService.itemDone(itemId).then(function (response) {
-            console.log(response.data)
+    $scope.markItemDone = function (scopeItem) {
+        ListService.itemDone(scopeItem.item.id, {"done": scopeItem.item.done}).then(function (response) {
+            if (response.status == 200) {
+                // Mark item as Done in the UI
+                scopeItem.item.done = response.data.done;
+            }
         })
     }
 }
@@ -76,16 +82,19 @@ function ListService($http, API_URL) {
     };
     return services;
 
+    // get all lsits
     function listGet() {
         return $http.get(API_URL);
     }
 
+    // get list details
     function listDetail(listId) {
         return $http.get(API_URL + 'list/' + listId + '/');
     }
 
-    function itemDone(itemId) {
-        return $http.put(API_URL + 'item/' + itemId + '/');
+    // update item status
+    function itemDone(itemId, data) {
+        return $http.put(API_URL + 'item/' + itemId + '/', data);
     }
 
 }

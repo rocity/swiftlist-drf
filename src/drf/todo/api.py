@@ -8,6 +8,8 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 
+from rest_framework.permissions import AllowAny
+
 from todo import models as todo_models
 from todo import serializers as todo_serializers
 
@@ -37,11 +39,13 @@ class ListDetailViewSet(ViewSet):
 class ItemViewSet(ViewSet):
     """docstring for ItemViewSet"""
     queryset = todo_models.Item.objects.all()
+    permission_classes = (AllowAny,)
 
     def update(self, *args, **kwargs):
         # set item as `done`
         item = get_object_or_404(todo_models.Item, id=kwargs['item_id'])
-        item.done = True
+        print(self.request.data)
+        item.done = self.request.data['done']
         serializer = todo_serializers.ItemSerializer(item, data=item.__dict__)
 
         if serializer.is_valid():

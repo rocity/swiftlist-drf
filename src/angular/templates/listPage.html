@@ -9,11 +9,16 @@
             ng-class="(item.done) ? 'item-done' : ''"
             ng-repeat="item in list.items">
             {{item.text}}
-            <input
-                type="checkbox"
-                class="pull-right"
-                ng-click="markItemDone(item.id)"
-                ng-checked="{{item.done}}">
+
+            <span class="pull-right item-control-group">
+                <input
+                    type="checkbox"
+                    class="item-done"
+                    ng-model="item.done"
+                    ng-change="markItemDone(this)">
+                <span class="glyphicon glyphicon-trash"></span>
+            </span>
+
         </li>
     </ul>
 </div>
